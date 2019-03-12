@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body>
+        <script>
+            function computerPlay() {
+                let choice = Math.floor(Math.random() * 2);
+                let decision;
+                if(choice === 0) {
+                    decision = "rock";
+                } else if (choice === 1) {
+                    decision = "paper";
+                } else if (choice === 2) {
+                    decision = "scissors";
+                }
+
+                return decision;
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                
+            }
+        </script>
+    </body>
+</html>
