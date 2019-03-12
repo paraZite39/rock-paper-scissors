@@ -6,21 +6,22 @@
     <body>
         <script>
             function computerPlay() {
-                let choice = Math.floor(Math.random() * 2);
+                let choice = Math.floor(Math.random() * 3 + 1);
                 let decision;
-                if(choice === 0) {
+                if(choice === 1) {
                     decision = "rock";
-                } else if (choice === 1) {
-                    decision = "paper";
                 } else if (choice === 2) {
+                    decision = "paper";
+                } else if (choice === 3) {
                     decision = "scissors";
                 }
 
                 return decision;
             }
 
-            function playRound(playerSelection, computerSelection) {
+            function game() {
                 let result;
+                function playRound(playerSelection, computerSelection) {
                 if(playerSelection === "rock") {
                     switch(computerSelection) {
                         case "rock":
@@ -57,11 +58,33 @@
                         break;
                     }
                 }
+                console.log("You chose " + playerSelection);
+                console.log("Computer chose " + computerSelection);
+                console.log("It's a " + result + "!");
             }
-
-            const playerSelection = 'rock'
-            const computerSelection = computerPlay()
-            console.log(playRound(playerSelection, computerSelection))
+                let playerScore = 0;
+                let computerScore = 0;
+                for(let i = 0; i < 5; i++) {
+                    console.log("Your score: " + playerScore + ". Computer score: " + computerScore + ". You played " + i + " games.");
+                    let playerSelection = prompt("Make your choice.").toLowerCase();
+                    const computerSelection = computerPlay();
+                    console.log(playRound(playerSelection, computerSelection))
+                    switch(result) {
+                        case 'win':
+                        playerScore++;
+                        break;
+                        case 'tie':
+                        break;
+                        case 'loss':
+                        computerScore++;
+                        break;
+                    }
+                }
+                console.log("The game is over. Final results: \n" +
+                    "Your score: " + playerScore + "\n" +
+                    "Computer score: " + computerScore);
+                }
+            game();
         </script>
     </body>
 </html>
