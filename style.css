@@ -1,0 +1,25 @@
+.button {
+    width: 300px;
+    height: 200px;
+    border: none;
+    font-size: 40px;
+    background-color: #faf5af;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+#heading {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    left: 30%;
+    top: 20px;
+}
+
+#buttons {
+    display: inline-block;
+    margin-left: 130px;
+    margin-top: 40px;
+    word-spacing: 10px;
+}

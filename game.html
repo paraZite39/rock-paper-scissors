@@ -2,8 +2,21 @@
 <html>
     <head>
         <title>Rock Paper Scissors</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+        <h1 id="heading">Rock Paper Scissors - BO5</h1>
+        <div id="buttons">
+            <button class="button" id="rock"><img src="rock.png"></button>
+            <button class="button" id="paper"><img src="paper.png"></button>
+            <button class="button" id="scissors"><img src="scissors.png"></button>
+        </div>
+        <div id="scoreBoard">
+            <p id="gameCounter"></p>
+            <p id="scores"></p>
+            <p id="result"></p>
+        </div>
+
         <script>
             function computerPlay() {
                 let choice = Math.floor(Math.random() * 3 + 1);
@@ -19,9 +32,27 @@
                 return decision;
             }
 
-            function game() {
-                let result;
-                function playRound(playerSelection, computerSelection) {
+            // game stats
+            let playerScore = 0;
+            let computerScore = 0;
+            let gamesPlayed = 0;
+
+            // buttons and onclickListeners
+            let rock = document.querySelector("#rock");
+            let paper = document.querySelector("#paper");
+            let scissors = document.querySelector("#scissors");
+            
+            rock.addEventListener("click", playRound, false);
+            paper.addEventListener("click", playRound, false);
+            scissors.addEventListener("click", playRound, false);
+
+            rock.param = "rock";
+            paper.param = "paper";
+            scissors.param = "scissors";
+
+            function playRound(evt) {
+                let computerSelection = computerPlay();
+                let playerSelection = evt.currentTarget.param;
                 if(playerSelection === "rock") {
                     switch(computerSelection) {
                         case "rock":
@@ -45,6 +76,7 @@
                         case "scissors":
                         result = "loss";
                         break;
+        
                     }} else if(playerSelection === "scissors") {
                     switch(computerSelection) {
                         case "rock":
@@ -58,33 +90,51 @@
                         break;
                     }
                 }
-                console.log("You chose " + playerSelection);
-                console.log("Computer chose " + computerSelection);
+                gamesPlayed++;
+
+                if(gamesPlayed === 5) {
+                console.log("TOTAL SCORES\n" +
+                            "Your score: " + playerScore + "\n" +
+                            "Computer score: " + computerScore + "\n");
+                
+                
+                document.getElementById("result").innerHTML = null;
+                document.getElementById("gameCounter").innerHTML = null;
+                document.getElementById("scores").innerHTML = "TOTAL SCORES: " + "\n" + 
+                                                                "Your score: " + playerScore + "\n" +
+                                                                "Computer score: " + computerScore + ".";
+
+                if(playerScore > computerScore) {
+                    document.getElementById("scores").append("\n" + "You won!");
+                } else {
+                    document.getElementById("scores").append("\n" + "You lost. Try again?");
+                }
+                
+                gamesPlayed = 0;
+                playerScore = 0;
+                computerScore = 0;
+
+            } else {
+                console.log("You chose " + playerSelection + ".");
+                console.log("Computer chose " + computerSelection + ".");
                 console.log("It's a " + result + "!");
+                console.log("Total games played: " + gamesPlayed + ".");
+
+                if (result === "loss") {
+                    computerScore++;
+                 } else if (result === "win") {
+                    playerScore++;
+                 }
+                
+                 document.getElementById("result").innerHTML = "It's a " + result + "!";
+                 document.getElementById("gameCounter").innerHTML = "You chose " + playerSelection + ".";
+                 document.getElementById("scores").innerHTML = "Your score: " + playerScore + "\n" +
+                                                                "Computer score: " + computerScore + 
+                                                                "Total games played: " + gamesPlayed;
             }
-                let playerScore = 0;
-                let computerScore = 0;
-                for(let i = 0; i < 5; i++) {
-                    console.log("Your score: " + playerScore + ". Computer score: " + computerScore + ". You played " + i + " games.");
-                    let playerSelection = prompt("Make your choice.").toLowerCase();
-                    const computerSelection = computerPlay();
-                    console.log(playRound(playerSelection, computerSelection))
-                    switch(result) {
-                        case 'win':
-                        playerScore++;
-                        break;
-                        case 'tie':
-                        break;
-                        case 'loss':
-                        computerScore++;
-                        break;
-                    }
-                }
-                console.log("The game is over. Final results: \n" +
-                    "Your score: " + playerScore + "\n" +
-                    "Computer score: " + computerScore);
-                }
-            game();
+        }
+
+
         </script>
     </body>
 </html>
